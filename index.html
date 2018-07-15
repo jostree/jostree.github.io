@@ -333,6 +333,281 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.jostree.com/2018/07/11/DiscreteAndContinuous/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Liu Yi">
+      <meta itemprop="description" content="Happy Coding">
+      <meta itemprop="image" content="https://avatars0.githubusercontent.com/u/7386331?v=3&u=45938e1f9b9128c2cf9933b43c3977875103ff1a&s=140">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jostree">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/07/11/DiscreteAndContinuous/" itemprop="url">
+                  当离散遇见连续
+                </a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-07-11 22:36:20" itemprop="dateCreated datePublished" datetime="2018-07-11T22:36:20+08:00">2018-07-11</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-07-15 19:59:02" itemprop="dateModified" datetime="2018-07-15T19:59:02+08:00">2018-07-15</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>在连续的空间中，我们可以说一条曲线是连续的、是可导的或者可微的，并且可以计算出曲线上一点的导数。那么离散的数列空间是否也具有这相同优美的性质呢？数列是具有类似于连续空间中的微分特性么？ 如何使用积分的思想计算多项式的累加和？幂积分与等比数列求和有什么联系？连续空间中的对数函数在离散空间中对应着什么？在下面的部分中，我们将搭建起离散空间和连续空间的桥梁，欣赏这离散空间的美。</p>
+<h2 id="微分与差分">微分与差分</h2>
+<p>我们定义微分算子：</p>
+<p><span class="math display">\[ D f(x) = \lim_{h \to 0} \frac{f(x + h) - f(x)}{h} \]</span></p>
+<p>在离散空间中，我们限制了<span class="math inline">\(h\)</span>的取值只能为正整数，因此<span class="math inline">\(h \to 0\)</span>时，<span class="math inline">\(h=1\)</span>是该极限最接近的值，从而我们定义差分算子:</p>
+<p><span class="math display">\[ \Delta f(x) = f(x + 1) - f(x) \]</span>  在连续空间的传统微积分中，我们有微分运算:</p>
+<p><span class="math display">\[D(X^m) = mx^{m-1}\]</span></p>
+<p>很不幸，在离散空间中却没有如此优美的结果：</p>
+<p><span class="math display">\[\Delta(x^3) = (x+1)^3 - x^3 = 3x^2 + 3x + 1\]</span></p>
+<p>是哪里出错了么？我们重新审视连续空间中幂的定义，把<span class="math inline">\(h\)</span>添加进幂的定义中，我们发现：</p>
+<p><span class="math display">\[x^m = \prod_{k=0}^{m - 1}\lim_{h \to 0}(x-kh)\]</span></p>
+<p>其中符号<span class="math inline">\(\prod\)</span>表示连乘（例如<span class="math inline">\(\prod_{k=1}^{3}k=1*2*3\)</span>），离散空间中我们限制了<span class="math inline">\(h\)</span>的取值只能为正整数，因此<span class="math inline">\(h \to 0\)</span>时，我们只能取<span class="math inline">\(h=1\)</span>，从而我们定义一种在离散空间的新运算等价于连续空间的幂运算：</p>
+<p><span class="math display">\[x^{\underline{m}} = \prod_{k=0}^{m - 1}(x-k)\]</span></p>
+<p>这不就是排列数么？！原来连续空间中的幂对应与离散空间就是排列数，有<span class="math inline">\(x\)</span>个不同的硬币，我们依次选出<span class="math inline">\(m\)</span>个，总共的选择方法有:</p>
+<p><span class="math display">\[
+\begin{aligned}
+&amp; x * (x-1) * \dots * (x - (m - 1)) \\ 
+=&amp; \prod_{k=0}^{m-1} x-k  \\
+=&amp; x^{\underline{m}}
+\end{aligned}
+\]</span></p>
+<p>我们称新运算<span class="math inline">\(x^{\underline{m}}\)</span>为下降幂，终于下降幂运算在差分算子中得到了优美的结果:</p>
+<p><span class="math display">\[
+\begin{aligned}
+&amp; \Delta(x^{\underline{m}})\\
+=&amp; (x+1)^{\underline{m}} - x ^{\underline{m}}\\
+=&amp; (x+1)x \dots  (x-m+2) - x \dots (x-m+2)(x-m+1)\\
+=&amp; (x+1)x^{\underline{m-1}} - x^{\underline{m-1}}(x-m+1)\\
+=&amp;mx^{\underline{m-1}}
+\end{aligned}
+\]</span></p>
+<h2 id="积分与求和">积分与求和</h2>
+<p>连续空间中微分算子<span class="math inline">\(D\)</span>有一个逆，叫作积分算子<span class="math inline">\(\int\)</span>，积分算子与微分算子的关系为</p>
+<p><span class="math display">\[g(x) = Df(x) \Leftrightarrow  \int g(x)dx = f(x) + C\]</span></p>
+<p>对应于离散空间，<span class="math inline">\(\Delta\)</span>也有一个逆，叫做求和算子<span class="math inline">\(\sum\)</span>，求和算子与差分算子的关系为</p>
+<p><span class="math display">\[g(x) = \Delta f(x) \Leftrightarrow \sum g(x)\delta x = f(x) + C\]</span></p>
+<p>在<span class="math inline">\(x\)</span>的取值处，<span class="math inline">\(C\)</span>为常数，当我们进行差分运算时，如同微分运算，常数会被消去。</p>
+<p>连续空间中也有定积分</p>
+<p><span class="math display">\[\int_a^b g(x)dx = f(x) \big| _a^b = f(b) - f(a) \]</span></p>
+<p>同样，对于离散空间，我们也定义相似的算子确定和</p>
+<p><span class="math display">\[\sum_a^b g(x)\delta x = f(x) \big|_a^b = f(b) - f(a)\]</span></p>
+<p>下面我们来探索算子<span class="math inline">\(\sum_a^bg(x)\delta\)</span>究竟有什么直观的意义呢？ 我们发现当<span class="math inline">\(a\)</span>和<span class="math inline">\(b\)</span>是正整数，且<span class="math inline">\(b\ge a\)</span>时</p>
+<p><span class="math display">\[\sum_a^bg(x)\delta x= \sum_{k=1}^{b-1}g(k)= \sum_{a\ge k &gt; b}g(k)\]</span></p>
+<p>在连续空间中的定积分公式</p>
+<p><span class="math display">\[\int_0^n x^m dx = \frac{n^{m+1}}{m+1}\]</span></p>
+<p>应用第一节中的下降幂算子得到了离散空间中另一个优美的公式:</p>
+<p><span class="math display">\[\sum_{0 \ge k &gt; n} k ^{\underline{m}} = \frac {k^{\underline{m+1}}}{m+1} \bigg|_0^n = \frac{n^{m+1}}{m+1}\]</span></p>
+<p>这个优美的公式可以解决离散空间的求和问题，当<span class="math inline">\(m=1\)</span>时，<span class="math inline">\(k^{\underline{1}} = k\)</span>即：</p>
+<p><span class="math display">\[\sum_{0 \ge k &gt; n}k = \frac{n^{\underline{2}}}{2} = n(n-1)/2\]</span></p>
+<p>这不就是高斯求和公式么？我们用离散空间和这种优雅的方式得到了它，进一步任何幂次的求和公式我们都可以计算</p>
+<p><span class="math display">\[k^2 = k^{\underline{2}} + k^{\underline{1}}\]</span></p>
+<p>从而</p>
+<p><span class="math display">\[
+\begin{aligned}
+&amp; \sum_{0 \ge k &gt; n}k^2 \\
+=&amp; \sum_{0 \ge k &gt; n}k^{\underline{2}} + k^{\underline{1}}\\
+=&amp; \frac{n^{\underline{3}}}{3} +\frac{n^{\underline{2}}}{2} \\
+=&amp; \frac{1}{3}n(n-\frac{1}{2})(n-1)
+\end{aligned}
+\]</span></p>
+<p>你得到了它！</p>
+<h2 id="负数下降幂与离散空间中的自然对数">负数下降幂与离散空间中的自然对数</h2>
+<p>我们定义的下降幂公式:</p>
+<p><span class="math display">\[x^{\underline{n}} = x^{\underline{n + 1}} / (x - n)\]</span></p>
+<p>不妨对n小于等于0的情况进行推广，从而可以得到如下表格</p>
+<p><span class="math display">\[
+\begin{array}{ll}
+\hline \hline
+ n &amp; x^{\underline{n}} \\\hline \hline
+0 &amp; 1 \\\hline
+-1 &amp; x^{\underline{-1}} = \frac{1}{(x+1)} \\\hline
+-2 &amp; x^{\underline{-2}} = \frac{1}{(x+1)(x+2)} \\\hline
+-3 &amp; x^{\underline{-3}} = \frac{1}{(x+1)(x+2)(x+3)} \\\hline \hline
+\end{array}
+\]</span></p>
+<p>对于负数下降幂，差分性质依然成立：</p>
+<p><span class="math display">\[
+\begin{aligned}
+\Delta x^{-2} &amp;= \frac{1}{(x+2)(x+3)} - \frac{1}{(x+1)(x+2)} \\
+&amp;= \frac{(x+1) - (x+3)}{(x+1)(x+2)(x+3)} \\
+&amp;= -2x^{\underline{-3}}
+\end{aligned}
+\]</span></p>
+<p>同样，对于负数下降幂求和公式仍然成立：</p>
+<p><span class="math display">\[\sum_{a}^b x ^{\underline{m}} \delta x = \frac {x^{\underline{m+1}}}{m+1} \bigg|_a^b, m \neq -1 \]</span></p>
+<p>在连续空间中，若<span class="math inline">\(m=-1\)</span>我们有</p>
+<p><span class="math display">\[\int_a^b x^{-1} dx = \ln x \bigg|_a^b\]</span></p>
+<p>在离散空间中我们希望找到相同的功能的函数，他需要满足：</p>
+<p><span class="math display">\[x^{\underline{-1}} = \frac{1}{x+1} = \Delta f(x) = f(x+1) - f(x)\]</span></p>
+<p>从而我们得到：</p>
+<p><span class="math display">\[f(x) = \frac{1}{1} + \frac{1}{2} + \dots + \frac{1}{x}\]</span></p>
+<p>定义函数<span class="math inline">\(f(x)\)</span>在<span class="math inline">\(x\)</span>为正整数时的调和数，定义为<span class="math inline">\(H_x\)</span>，他等价于连续空间中的<span class="math inline">\(\ln(x)\)</span></p>
+<p>从而我们可以得到下降和的完全描述：</p>
+<p><span class="math display">\[
+\sum_a^b x^{\underline{m}} \delta x = 
+\left\{
+\begin{aligned}
+\frac{x^{\underline{m+1}}}{m+1} \bigg|_a^b &amp;&amp; , m \neq -1 \\
+H_x \bigg|_a^b &amp;&amp;, m = -1
+\end{aligned} \right.
+\]</span></p>
+<p>在连续空间中，我们有<span class="math inline">\(D e^x = e^x\)</span>在连续空间中，我们是否也存在一个函数具有<span class="math inline">\(\Delta f(x) = f(x)\)</span>呢？ <span class="math display">\[
+f(x+1) - f(x) = f(x) \Leftrightarrow f(x + 1) = 2f(x)
+\]</span></p>
+<p>久违的结果！在离散空间中<span class="math inline">\(f(x) = 2^x\)</span>等价于连续空间中的<span class="math inline">\(f(x) = e^x\)</span> ，而离散空间中的2就等价与连续空间中的自然对数<span class="math inline">\(e\)</span>。</p>
+<h2 id="总结">总结</h2>
+<p>我们在这里总结连续空间中的各种微积分形式在离散空间中对应的查分求和形式</p>
+<p><span class="math display">\[
+\begin{array}{lll}
+\hline \hline
+说明 &amp; 连续空间 &amp; 离散空间 \\
+\hline \hline
+微分 \Leftrightarrow 差分 &amp; D f(x) = \lim_{h \to 0} \frac{f(x + h) - f(x)}{h} &amp; \Delta f(x) = f(x + 1) - f(x) \\\hline
+积分 \Leftrightarrow 求和 &amp; g(x) = Df(x) \Leftrightarrow \int g(x)dx = f(x) + C &amp; g(x) = \Delta f(x) \Leftrightarrow \sum g(x)\delta x = f(x) + C \\\hline
+定积分 \Leftrightarrow 限定求和 &amp; \int_a^b g(x)dx = f(x) \big|_a^b = f(b) - f(a) &amp; \sum_a^b g(x)\delta x = f(x) \big|_a^b = f(b) - f(a) \\\hline
+幂 \Leftrightarrow 下降幂 &amp; x^m &amp; x^{\underline{m}} \\\hline
+幂微分 \Leftrightarrow 下降幂差分 &amp; D (x^m) = m x^{m-1}  &amp; \Delta (x^{\underline{m}}) = mx^{\underline{m-1}} \\\hline
+自然对数 \Leftrightarrow 离散对数 &amp; e &amp; 2 \\\hline
+自然对数函数 \Leftrightarrow 离散调和函数 &amp; \ln(x) = \log_e(x) &amp; H(x) =  \frac{1}{1} + \frac{1}{2} + \dots + \frac{1}{x}\\\hline
+幂积分 \Leftrightarrow 下降幂求和 (m \neq -1)&amp; \int_a^b x^m dx =  \frac{x^{m+1}}{m+1} \big|_a^b  = \frac{b^{m+1}-a^{m+1}}{m+1}  &amp; \sum_{a \ge x &gt; b} x ^{\underline{m}} \delta x = \frac {x^{\underline{m+1}}}{m+1} \big|_a^b = \frac{b^{\underline{m+1}} - a^{\underline{m+1}}}{m+1} \\\hline
+幂积分 \Leftrightarrow 下降幂求和 (m = -1)&amp; \int_a^b x^m dx = \int_a^b \frac{1}{x} dx =  \ln(x) \big|_a^b  = \ln(b) - \ln(a) &amp; \sum_{a \ge x &gt; b} x ^{\underline{-1}} \delta x =  H(x) \big|_a^b = H(b) - H(a) \\\hline
+指数函数积分 \Leftrightarrow 等比数列求和 (c \neq 1)&amp; \int_a^b m^x =   \frac{m^x}{\ln(m)} \big|_a^b = \frac{m^b - m^a}{\ln(m)}&amp; \sum_{a \ge x &gt; b} m^x \delta x = \frac{m^x}{m-1}\big|_a^b = \frac{m^b - m^a}{m-1} \\\hline \hline
+\end{array}
+\]</span></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.jostree.com/2016/04/09/Eular质数筛法/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -396,7 +671,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-06-23 14:30:51" itemprop="dateModified" datetime="2018-06-23T14:30:51+08:00">2018-06-23</time>
+                <time title="Modified: 2018-06-23 16:49:59" itemprop="dateModified" datetime="2018-06-23T16:49:59+08:00">2018-06-23</time>
               
             
           </span>
@@ -448,18 +723,14 @@
 
       
         
-          
-            <h2 id="在on的时间内求得n以内的质数">在o(n)的时间内求得n以内的质数</h2>
-<p>如果一个数是质数，那么他的倍数一定是合数，从而从1到n筛选一次即可，但是有一个问题，对于数10来说，在质数是2的时候被筛掉过一次，质数是5的时候又被筛掉一次，造成了冗余，如何解决这个问题呢？</p>
-<p>在枚举的时候，我们只枚举i的质数倍。比如2i,3i,5i,...，而不去枚举4i,6i, 此外，在从小到大依次枚举质数p来计算i的倍数时，我们还需要检查i是否能够整除p。若i能够整除p，则停止枚举。</p>
-<p>利用该算法，可以保证每个合数只会被枚举到一次。我们可以证明如下命题：</p>
-<p>假设一个合数k=M*p1，p1为其最小的质因子。则k只会在i=M，primeList[j]=p1时被筛掉一次。</p>
-<p>首先会在i=M，primeList[j]=p1时被筛掉是显然的。因为p1是k的最小质因子，所以i=M的所有质因子也≥p1。于是j循环在枚举到primeList[j]=p1前不会break，从而一定会在i=M，primeList[j]=p1时被筛掉</p>
-<p>其次不会在其他时候被筛掉。否则假设k在i=N, primeList[j]=p1时被筛掉了，此时有k=N*p2。由于p1是k最小的质因子，所以p2 &gt; p1，M &gt; N且p|N。则i=N，j枚举到primeList[j]=p1时(没到primeList[j]=p2)就break了。所以不会有其他时候筛掉k。</p>
-<p>同时，不枚举合数倍数的原因也在此：对于一个合数k=M *2*3。只有在枚举到i=M*3时，才会计算到k。若我们枚举合数倍数，则可能会在i=M时，通过M*6计算到k，这样也就造成了多次重复计算了。</p>
-<p>代码如下： <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdlib&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> N;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXN = <span class="number">1e6</span>+<span class="number">10</span>;</span><br><span class="line"><span class="keyword">bool</span> isPrime[MAXN];</span><br><span class="line"><span class="keyword">int</span> prime[MAXN];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Eula</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">memset</span>(isPrime, <span class="number">1</span>, <span class="keyword">sizeof</span>(isPrime));</span><br><span class="line">    <span class="built_in">memset</span>(prime, <span class="number">0</span>, <span class="keyword">sizeof</span>(prime));</span><br><span class="line">    <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>( <span class="keyword">int</span> i = <span class="number">2</span> ; i &lt;= N ; i++ )</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(isPrime[i])</span><br><span class="line">        &#123;</span><br><span class="line">            prime[count++] = i;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>( <span class="keyword">int</span> j = <span class="number">0</span> ; j &lt; count ; j++ )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(prime[j] * i &gt; N) <span class="keyword">break</span>;</span><br><span class="line">            isPrime[prime[j] * i] = <span class="literal">false</span>;</span><br><span class="line">            <span class="keyword">if</span>(i % prime[j] == <span class="number">0</span>) <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> count;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;N);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, Eula());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-
-          
+          如何在o(n)的时间内求得n以内得质数?
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2016/04/09/Eular质数筛法/">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1840,193 +2111,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.jostree.com/2016/03/01/leetcode-1-Two-Sum/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Liu Yi">
-      <meta itemprop="description" content="Happy Coding">
-      <meta itemprop="image" content="https://avatars0.githubusercontent.com/u/7386331?v=3&u=45938e1f9b9128c2cf9933b43c3977875103ff1a&s=140">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jostree">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2016/03/01/leetcode-1-Two-Sum/" itemprop="url">
-                  leetcode 1. Two Sum
-                </a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2016-03-01 09:37:37" itemprop="dateCreated datePublished" datetime="2016-03-01T09:37:37+08:00">2016-03-01</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2018-06-23 14:30:51" itemprop="dateModified" datetime="2018-06-23T14:30:51+08:00">2018-06-23</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/leetcode/" itemprop="url" rel="index"><span itemprop="name">leetcode</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="题目"><a href="https://leetcode.com/problems/two-sum/" target="_blank" rel="noopener">题目</a></h2>
-<p>Given an array of integers, return indices of the two numbers such that they add up to a specific target.</p>
-<p>You may assume that each input would have exactly one solution.</p>
-<blockquote>
-<p>Example: Given nums = [2, 7, 11, 15], target = 9,</p>
-</blockquote>
-<blockquote>
-<p>Because nums[0] + nums[1] = 2 + 7 = 9, return [0, 1].</p>
-</blockquote>
-<h2 id="题解">题解</h2>
-<p>使用hash, hash[i]表示i这个数字所在的索引是hash[i], 当在处理第j个节点时，查找hash[target - nums[j]] 是否存在，如果存在则得到解，返回。复杂度o(nlogn)</p>
-<h2 id="注意">注意</h2>
-<ol style="list-style-type: decimal">
-<li>如果使用排序，然后头尾指针遍历，因为需要返回的是索引值，若单纯建立一个hash记录每个元素的下标，会出现数组中有相同元素的时候，不好解决。 所以需要建立一个数据结构，包括该数的值和索引，然后在对数据结构排序。</li>
-<li>如果暴力枚举i，j则复杂度为<span class="math inline">\(o(n^2)\)</span>, 会超时。</li>
-</ol>
-<h2 id="代码">代码</h2>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; twoSum(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> target) &#123;</span><br><span class="line">        <span class="built_in">map</span>&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt; hh;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.size(); i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> tmp = target - nums[i];</span><br><span class="line">            <span class="keyword">if</span>(hh.count(tmp))</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; res;</span><br><span class="line">                res.push_back(hh[tmp]);</span><br><span class="line">                res.push_back(i);</span><br><span class="line">                <span class="keyword">return</span> res;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                hh[nums[i]] = i;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2078,7 +2162,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">11</span>
+                    <span class="site-state-item-count">12</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -2126,7 +2210,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">9</span>
+                      
+                    
+                    <span class="site-state-item-count">10</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
@@ -2335,13 +2421,13 @@
   
     
       
-    
-      
-    
-      
-    
-      
         
+      
+    
+      
+    
+      
+    
       
     
       

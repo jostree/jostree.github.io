@@ -333,6 +333,193 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.jostree.com/2016/03/01/leetcode-1-Two-Sum/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Liu Yi">
+      <meta itemprop="description" content="Happy Coding">
+      <meta itemprop="image" content="https://avatars0.githubusercontent.com/u/7386331?v=3&u=45938e1f9b9128c2cf9933b43c3977875103ff1a&s=140">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jostree">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/03/01/leetcode-1-Two-Sum/" itemprop="url">
+                  leetcode 1. Two Sum
+                </a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2016-03-01 09:37:37" itemprop="dateCreated datePublished" datetime="2016-03-01T09:37:37+08:00">2016-03-01</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-06-23 14:30:51" itemprop="dateModified" datetime="2018-06-23T14:30:51+08:00">2018-06-23</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/leetcode/" itemprop="url" rel="index"><span itemprop="name">leetcode</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="题目"><a href="https://leetcode.com/problems/two-sum/" target="_blank" rel="noopener">题目</a></h2>
+<p>Given an array of integers, return indices of the two numbers such that they add up to a specific target.</p>
+<p>You may assume that each input would have exactly one solution.</p>
+<blockquote>
+<p>Example: Given nums = [2, 7, 11, 15], target = 9,</p>
+</blockquote>
+<blockquote>
+<p>Because nums[0] + nums[1] = 2 + 7 = 9, return [0, 1].</p>
+</blockquote>
+<h2 id="题解">题解</h2>
+<p>使用hash, hash[i]表示i这个数字所在的索引是hash[i], 当在处理第j个节点时，查找hash[target - nums[j]] 是否存在，如果存在则得到解，返回。复杂度o(nlogn)</p>
+<h2 id="注意">注意</h2>
+<ol style="list-style-type: decimal">
+<li>如果使用排序，然后头尾指针遍历，因为需要返回的是索引值，若单纯建立一个hash记录每个元素的下标，会出现数组中有相同元素的时候，不好解决。 所以需要建立一个数据结构，包括该数的值和索引，然后在对数据结构排序。</li>
+<li>如果暴力枚举i，j则复杂度为<span class="math inline">\(o(n^2)\)</span>, 会超时。</li>
+</ol>
+<h2 id="代码">代码</h2>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; twoSum(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> target) &#123;</span><br><span class="line">        <span class="built_in">map</span>&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt; hh;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.size(); i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> tmp = target - nums[i];</span><br><span class="line">            <span class="keyword">if</span>(hh.count(tmp))</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; res;</span><br><span class="line">                res.push_back(hh[tmp]);</span><br><span class="line">                res.push_back(i);</span><br><span class="line">                <span class="keyword">return</span> res;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                hh[nums[i]] = i;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.jostree.com/2015/11/11/一些小算法/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -570,7 +757,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">11</span>
+                    <span class="site-state-item-count">12</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -618,7 +805,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">9</span>
+                      
+                    
+                    <span class="site-state-item-count">10</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
@@ -825,6 +1014,8 @@
 
   
   
+    
+      
     
       
     
